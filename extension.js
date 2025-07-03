@@ -12,6 +12,11 @@ function activate(context) {
   let PUBLISH_MINOR_WITH_GIT = vscode.commands.registerCommand('publish-npm-module.withGit.minor', () => publishModule('minor', true))
   let PUBLISH_MAJOR_WITH_GIT = vscode.commands.registerCommand('publish-npm-module.withGit.major', () => publishModule('major', true))
 
+  // Version the module with GIT and GitHub Release support
+  let PUBLISH_PATCH_WITH_RELEASE = vscode.commands.registerCommand('publish-npm-module.withRelease.patch', () => publishModule('patch', true, true))
+  let PUBLISH_MINOR_WITH_RELEASE = vscode.commands.registerCommand('publish-npm-module.withRelease.minor', () => publishModule('minor', true, true))
+  let PUBLISH_MAJOR_WITH_RELEASE = vscode.commands.registerCommand('publish-npm-module.withRelease.major', () => publishModule('major', true, true))
+
   context.subscriptions.push(PUBLISH_PATCH)
   context.subscriptions.push(PUBLISH_MINOR)
   context.subscriptions.push(PUBLISH_MAJOR)
@@ -19,6 +24,10 @@ function activate(context) {
   context.subscriptions.push(PUBLISH_PATCH_WITH_GIT)
   context.subscriptions.push(PUBLISH_MINOR_WITH_GIT)
   context.subscriptions.push(PUBLISH_MAJOR_WITH_GIT)
+
+  context.subscriptions.push(PUBLISH_PATCH_WITH_RELEASE)
+  context.subscriptions.push(PUBLISH_MINOR_WITH_RELEASE)
+  context.subscriptions.push(PUBLISH_MAJOR_WITH_RELEASE)
 }
 
 exports.activate = activate
@@ -26,7 +35,7 @@ exports.activate = activate
 function deactivate() {}
 exports.deactivate = deactivate
 
-const publishModule = (level, git = false) => {
+const publishModule = (level, git = false, githubRelease = false) => {
   try {
     const terminal = vscode.window.createTerminal(`Publishing module..`)
     terminal.show()
@@ -34,6 +43,12 @@ const publishModule = (level, git = false) => {
     terminal.sendText('npm publish')
 
     if (git) terminal.sendText('git push --follow-tags')
+
+    if (githubRelease) {
+      terminal.sendText('VERSION=$(node -p "require(\"./package.json\").version")')
+      terminal.sendText('auto-changelog --ending-version v$VERSION --hide-empty-releases --hide-credit > /tmp/release-notes.md')
+      terminal.sendText('gh release create v$VERSION -t v$VERSION -F /tmp/release-notes.md')
+    }
 
   } catch (err) {
     console.log(err)
