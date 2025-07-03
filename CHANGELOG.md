@@ -10,6 +10,7 @@ All notable changes to the "publish-npm-modules" extension will be documented in
 ### 1.2.0
 
 - Added commands to create GitHub releases automatically
+- Release notes are generated using auto-changelog
 
 ### 1.0.0
 

@@ -7,7 +7,7 @@ Use this extension to quickly publish NPM modules. You can also choose to push y
 - Version your NPM modules with `PATCH | MINOR | MAJOR`
 - Publish your NPM modules
 - Push to GIT
-- Create a GitHub Release with the new tag
+- Create a GitHub Release with the new tag and auto-generated notes
 
 ## :clipboard: Usage
 
@@ -34,7 +34,8 @@ Initial release
 
 ## :question: Automatic Release Notes
 
-You can supply the `--generate-notes` flag to the `gh release create` command to
-let GitHub compile a summary of recent changes. Tools like `auto-changelog` can
-also be used to generate a changelog file that can be passed to `gh` via the `-F`
-flag.
+This extension automatically generates release notes by running `auto-changelog --ending-version v$VERSION --hide-empty-releases --hide-credit` and passing the
+result to `gh release create`.
+
+You can also supply the `--generate-notes` flag to `gh release create` if you
+want GitHub to guess the notes for you.
