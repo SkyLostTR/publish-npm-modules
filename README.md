@@ -35,11 +35,11 @@ Initial release
 ## :question: Automatic Release Notes
 
 This extension automatically generates release notes by running
-`npx auto-changelog --hide-empty-releases --hide-credit > CHANGELOG.md` and then
-creating a GitHub release with `gh release create`. For example:
+`npx auto-changelog --hide-empty-releases --hide-credit --output CHANGELOG.md`
+and then creating a GitHub release with `gh release create`. For example:
 
 ```bash
-npx auto-changelog --hide-empty-releases --hide-credit > CHANGELOG.md
+npx auto-changelog --hide-empty-releases --hide-credit --output CHANGELOG.md
 gh release create v1.2.1 -t v1.2.1 -F ./CHANGELOG.md
 ```
 
