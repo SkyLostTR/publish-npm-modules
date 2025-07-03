@@ -45,9 +45,9 @@ const publishModule = (level, git = false, githubRelease = false) => {
     if (git) terminal.sendText('git push --follow-tags')
 
     if (githubRelease) {
-      terminal.sendText('VERSION=$(node -p "require(\"./package.json\").version")')
-      terminal.sendText('auto-changelog --ending-version v$VERSION --hide-empty-releases --hide-credit > /tmp/release-notes.md')
-      terminal.sendText('gh release create v$VERSION -t v$VERSION -F /tmp/release-notes.md')
+      const version = require('./package.json').version
+      terminal.sendText('auto-changelog --hide-empty-releases --hide-credit > /tmp/release-notes.md')
+      terminal.sendText(`gh release create v${version} -t v${version} -F /tmp/release-notes.md`)
     }
 
   } catch (err) {

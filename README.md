@@ -34,8 +34,8 @@ Initial release
 
 ## :question: Automatic Release Notes
 
-This extension automatically generates release notes by running `auto-changelog --ending-version v$VERSION --hide-empty-releases --hide-credit` and passing the
-result to `gh release create`.
+This extension automatically generates release notes by running `auto-changelog --hide-empty-releases --hide-credit` and passing the
+result to `gh release create` with the current version from `package.json`.
 
 You can also supply the `--generate-notes` flag to `gh release create` if you
 want GitHub to guess the notes for you.
