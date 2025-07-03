@@ -39,6 +39,18 @@
       {
         "command": "publish-npm-module.withGit.major",
         "title": "NPM+GIT: Publish MAJOR (+1.X.X)"
+      },
+      {
+        "command": "publish-npm-module.withRelease.patch",
+        "title": "NPM+GIT+GH: Publish PATCH (X.X.+1)"
+      },
+      {
+        "command": "publish-npm-module.withRelease.minor",
+        "title": "NPM+GIT+GH: Publish MINOR (X.+1.X)"
+      },
+      {
+        "command": "publish-npm-module.withRelease.major",
+        "title": "NPM+GIT+GH: Publish MAJOR (+1.X.X)"
       }
     ]
   },
